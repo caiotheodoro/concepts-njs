@@ -81,29 +81,20 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 });
 
 app.put('/todos/:id', checksExistsUserAccount, checksExistsTodo, (request, response) => {
-  const { user, todo } = request
+  const {  todo } = request
   const { title, deadline } = request.body
-  const { id } = request.params;
-
 
   todo.title = title;
   todo.deadline = new Date(deadline);
 
   return response.status(200).json(todo);
 
-//  const indexTodoToBeModified = user.todos.findIndex(todo => todo.id === id)
-// user.todos[indexTodoToBeModified] = {...user.todos[indexTodoToBeModified], title: title, deadline: deadline}
-
-  
-
-
 
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount,checksExistsTodo, (request, response) => {
 
-  const { user,todo } = request
-  const { id } = request.params;
+  const { todo } = request
 
   todo.done = true
 
@@ -113,7 +104,6 @@ app.patch('/todos/:id/done', checksExistsUserAccount,checksExistsTodo, (request,
 app.delete('/todos/:id', checksExistsUserAccount,checksExistsTodo, (request, response) => {
 
   const { user, todo } = request
-  const { id } = request.params;
 
   user.todos.splice(todo,1);
 
